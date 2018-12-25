@@ -104,20 +104,25 @@
 
 
 
-  <meta property="og:type" content="website">
-<meta property="og:title" content="有记">
-<meta property="og:url" content="https://www.hasnote.com/index.html">
+  <meta name="description" content="本文基于php7.0。所以在进行下列操作前，请先自行安装php7.0,安装步骤本文略过。 准备工作安装php Linux系统下，推荐使用remi源码进行安装 Mac下，推荐使用MAMP集成环境  下载php源码12$ wget http://cn2.php.net/distributions/php-7.0.14.tar.gz$ tar zxvf php-7.0.14.tar.gz 编写扩展学习e">
+<meta name="keywords" content="PHP">
+<meta property="og:type" content="article">
+<meta property="og:title" content="PHP7开发扩展快速入门">
+<meta property="og:url" content="https://www.hasnote.com/2018/10/php-extension-dev/index.html">
 <meta property="og:site_name" content="有记">
+<meta property="og:description" content="本文基于php7.0。所以在进行下列操作前，请先自行安装php7.0,安装步骤本文略过。 准备工作安装php Linux系统下，推荐使用remi源码进行安装 Mac下，推荐使用MAMP集成环境  下载php源码12$ wget http://cn2.php.net/distributions/php-7.0.14.tar.gz$ tar zxvf php-7.0.14.tar.gz 编写扩展学习e">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2018-12-25T06:05:07.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="有记">
+<meta name="twitter:title" content="PHP7开发扩展快速入门">
+<meta name="twitter:description" content="本文基于php7.0。所以在进行下列操作前，请先自行安装php7.0,安装步骤本文略过。 准备工作安装php Linux系统下，推荐使用remi源码进行安装 Mac下，推荐使用MAMP集成环境  下载php源码12$ wget http://cn2.php.net/distributions/php-7.0.14.tar.gz$ tar zxvf php-7.0.14.tar.gz 编写扩展学习e">
 
 
 
 
 
 
-  <link rel="canonical" href="https://www.hasnote.com/">
+  <link rel="canonical" href="https://www.hasnote.com/2018/10/php-extension-dev/">
 
 
 
@@ -127,7 +132,7 @@
   };
 </script>
 
-  <title>有记</title>
+  <title>PHP7开发扩展快速入门 | 有记</title>
   
 
 
@@ -185,8 +190,7 @@
     
   
 
-  <div class="container sidebar-position-left 
-  page-home">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
@@ -228,7 +232,7 @@
         
         
           
-          <li class="menu-item menu-item-home menu-item-active">
+          <li class="menu-item menu-item-home">
 
     
     
@@ -324,9 +328,9 @@
           
           <div id="content" class="content">
             
-  <section id="posts" class="posts-expand">
+
+  <div id="posts" class="posts-expand">
     
-      
 
   
 
@@ -334,6 +338,8 @@
   
   
 
+  
+    <div class="reading-progress-bar"></div>
   
 
   <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
@@ -358,10 +364,8 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2018/10/php-extension-dev/" class="post-title-link" itemprop="url">PHP7开发扩展快速入门</a>
+          <h1 class="post-title" itemprop="name headline">PHP7开发扩展快速入门
+
               
             
           </h1>
@@ -499,9 +503,7 @@
       
 
       
-        
-          
-            <p>本文基于php7.0。所以在进行下列操作前，请先自行安装php7.0,安装步骤本文略过。</p>
+        <p>本文基于php7.0。所以在进行下列操作前，请先自行安装php7.0,安装步骤本文略过。</p>
 <h2 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h2><h3 id="安装php"><a href="#安装php" class="headerlink" title="安装php"></a>安装php</h3><ul>
 <li>Linux系统下，推荐使用remi源码进行安装</li>
 <li>Mac下，推荐使用MAMP集成环境</li>
@@ -537,8 +539,6 @@
 <p>输出:<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Congratulations! You have successfully modified ext/demo/config.m4. Module <span class="built_in">test</span> is now compiled into PHP.</span><br><span class="line">hello world ,hello php !</span><br></pre></td></tr></table></figure></p>
 <p>至此我们已经完成了一个属于自己的php扩展</p>
 
-          
-        
       
     </div>
 
@@ -559,14 +559,20 @@
 
     <footer class="post-footer">
       
+        <div class="post-tags">
+          
+            <a href="/tags/PHP/" rel="tag"># PHP</a>
+          
+        </div>
+      
+
+      
+      
+      
 
       
 
       
-
-      
-      
-        <div class="post-eof"></div>
       
     </footer>
   </div>
@@ -576,14 +582,19 @@
   </article>
 
 
-    
-  </section>
-
-  
+  </div>
 
 
           </div>
           
+
+  
+    <div class="comments" id="comments">
+    </div>
+
+  
+
+
 
         </div>
         
@@ -604,8 +615,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <div class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <div class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
             
@@ -691,6 +711,22 @@
         </div>
       </div>
 
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#准备工作"><span class="nav-number">1.</span> <span class="nav-text">准备工作</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#安装php"><span class="nav-number">1.1.</span> <span class="nav-text">安装php</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#下载php源码"><span class="nav-number">1.2.</span> <span class="nav-text">下载php源码</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#编写扩展"><span class="nav-number">2.</span> <span class="nav-text">编写扩展</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#学习ext-skel工具"><span class="nav-number">2.1.</span> <span class="nav-text">学习ext_skel工具</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#生成扩展文件"><span class="nav-number">2.2.</span> <span class="nav-text">生成扩展文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#修改配置文件"><span class="nav-number">2.3.</span> <span class="nav-text">修改配置文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#编写自定义函数"><span class="nav-number">2.4.</span> <span class="nav-text">编写自定义函数</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装"><span class="nav-number">3.</span> <span class="nav-text">安装</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#编译安装"><span class="nav-number">3.1.</span> <span class="nav-text">编译安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#开启扩展"><span class="nav-number">3.2.</span> <span class="nav-text">开启扩展</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#测试"><span class="nav-number">3.3.</span> <span class="nav-text">测试</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
       
 
       
@@ -843,6 +879,10 @@
 
 
   
+  <script src="/js/src/scrollspy.js?v=6.6.0"></script>
+<script src="/js/src/post-details.js?v=6.6.0"></script>
+
+
 
   
 
