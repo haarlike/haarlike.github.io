@@ -1,0 +1,1157 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=6.6.0" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/hasnote/180.png?v=6.6.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/hasnote/32.png?v=6.6.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/hasnote/16.png?v=6.6.0">
+
+
+  <link rel="mask-icon" href="/images/hasnote/600.svg?v=6.6.0" color="#222">
+
+
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '6.6.0',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":true,"scrollpercent":true,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="本文目的是引导新手快速使用git进行版本管理，暂不涉及版本回退、分支等内容。 简介Git已经流行好几年了，不过由于前些年多数用的是svn，所以刚使用git时可能会有些不习惯。简单说下两者较大的区别  Git是分布式版本控制，每个开发者本机都有版本管理，可脱离服务端使用；而SVN是集中式版本控制，完全的C/S架构，无法脱离服务端。Git在迁移仓库时，比SVN要容易太多 Git独有的分支，可以高效切换">
+<meta name="keywords" content="工具">
+<meta property="og:type" content="article">
+<meta property="og:title" content="10分钟上手Git">
+<meta property="og:url" content="https://www.hasnote.com/2018/12/git-start/index.html">
+<meta property="og:site_name" content="有记">
+<meta property="og:description" content="本文目的是引导新手快速使用git进行版本管理，暂不涉及版本回退、分支等内容。 简介Git已经流行好几年了，不过由于前些年多数用的是svn，所以刚使用git时可能会有些不习惯。简单说下两者较大的区别  Git是分布式版本控制，每个开发者本机都有版本管理，可脱离服务端使用；而SVN是集中式版本控制，完全的C/S架构，无法脱离服务端。Git在迁移仓库时，比SVN要容易太多 Git独有的分支，可以高效切换">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-01-03T03:12:52.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="10分钟上手Git">
+<meta name="twitter:description" content="本文目的是引导新手快速使用git进行版本管理，暂不涉及版本回退、分支等内容。 简介Git已经流行好几年了，不过由于前些年多数用的是svn，所以刚使用git时可能会有些不习惯。简单说下两者较大的区别  Git是分布式版本控制，每个开发者本机都有版本管理，可脱离服务端使用；而SVN是集中式版本控制，完全的C/S架构，无法脱离服务端。Git在迁移仓库时，比SVN要容易太多 Git独有的分支，可以高效切换">
+
+
+
+
+
+
+  <link rel="canonical" href="https://www.hasnote.com/2018/12/git-start/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>10分钟上手Git | 有记</title>
+  
+
+
+
+
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?ddc032293fdd2e965276a1b26273ca8a";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion .logo-line-before i { left: initial; }
+    .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">有记</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <p class="site-subtitle">大道至简，知易行难</p>
+      
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+    <div class="reading-progress-bar"></div>
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://www.hasnote.com/2018/12/git-start/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="haarlike">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="有记">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">10分钟上手Git
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2018-12-26 14:48:56" itemprop="dateCreated datePublished" datetime="2018-12-26T14:48:56+08:00">2018-12-26</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-01-03 11:12:52" itemprop="dateModified" datetime="2019-01-03T11:12:52+08:00">2019-01-03</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/杂谈/" itemprop="url" rel="index"><span itemprop="name">杂谈</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/12/git-start/#comments" itemprop="discussionUrl">
+                  <span class="post-meta-item-text">评论数：</span> <span class="post-comments-count valine-comment-count" data-xid="/2018/12/git-start/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-symbolscount">
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">本文字数：</span>
+                
+                <span title="本文字数">8k</span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">7 分钟</span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>本文目的是引导新手快速使用git进行版本管理，暂不涉及版本回退、分支等内容。</p>
+<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>Git已经流行好几年了，不过由于前些年多数用的是svn，所以刚使用git时可能会有些不习惯。<br>简单说下两者较大的区别</p>
+<ul>
+<li>Git是分布式版本控制，每个开发者本机都有版本管理，可脱离服务端使用；而SVN是集中式版本控制，完全的C/S架构，无法脱离服务端。Git在迁移仓库时，比SVN要容易太多</li>
+<li>Git独有的分支，可以高效切换，合并不同开发线</li>
+</ul>
+<p>虽然Git不需要服务端就可以使用，但在多人协作时，通常还是会部署一台服务器，用来管理开发者权限和交换文件，我们这里姑且称之为服务端，所有人的提交都推送到服务端，同样也是从该服务端拉取其他人的提交内容。注意，该服务器只是充当一个权限管理，文件交换的作用，并不是必须的。</p>
+<h2 id="入门"><a href="#入门" class="headerlink" title="入门"></a>入门</h2><h3 id="安装git"><a href="#安装git" class="headerlink" title="安装git"></a>安装git</h3><p>Linux 使用<code>yum install git</code>、<code>apt-get install git</code>等方式<br>Mac 下<code>brew install git</code><br>Window推荐使用<code>MinGW</code></p>
+<p>通常在命令行下使用，window下安装MinGW后，右键会出现快捷菜单<code>git bash</code>，可快速进入命令行，本文中操作均在命令行下执行</p>
+<h3 id="创建版本库"><a href="#创建版本库" class="headerlink" title="创建版本库"></a>创建版本库</h3><p>本地创建一个版本库，有两种方式</p>
+<ul>
+<li><p>直接从远端服务器clone，以从github上clone为例:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ git <span class="built_in">clone</span> git@github.com:haarlike/haarlike.github.io.git</span><br><span class="line">$ <span class="built_in">cd</span>  haarlike.github.io</span><br><span class="line">$ ls -al</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>本地直接创建一个新版本库demo:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ mkdir demo</span><br><span class="line">$ <span class="built_in">cd</span> demo</span><br><span class="line">$ git init</span><br><span class="line">$ ls -al</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>可以看到有一个名为<code>.git</code>的目录，后面会做简单讲解</p>
+<h3 id="新增文件"><a href="#新增文件" class="headerlink" title="新增文件"></a>新增文件</h3><ol>
+<li><p>创建一个新文件</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ touch <span class="built_in">test</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>查看版本库状态<br><code>git status</code>是最常使用的命令之一，要记住几个常见提示语</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git status</span><br></pre></td></tr></table></figure>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">On branch master</span><br><span class="line"></span><br><span class="line">Initial commit</span><br><span class="line"></span><br><span class="line">Untracked files:</span><br><span class="line">  (use <span class="string">"git add &lt;file&gt;..."</span> to include <span class="keyword">in</span> what will be committed)</span><br><span class="line"></span><br><span class="line">	<span class="built_in">test</span></span><br><span class="line"></span><br><span class="line">nothing added to commit but untracked files present (use <span class="string">"git add"</span> to track)</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>该提示意思是，当前在master分支，有文件不在版本控制中，可以使用<code>git add</code> 命令来添加他们到暂存区，以便将来提交到版本库中</p>
+</blockquote>
+</li>
+<li><p>添加文件到版本库</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ git add <span class="built_in">test</span></span><br><span class="line">$ git status</span><br></pre></td></tr></table></figure>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">On branch master</span><br><span class="line"></span><br><span class="line">Initial commit</span><br><span class="line"></span><br><span class="line">Changes to be committed:</span><br><span class="line">  (use <span class="string">"git rm --cached &lt;file&gt;..."</span> to unstage)</span><br><span class="line"></span><br><span class="line">	new file:   <span class="built_in">test</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>该提示意思是，有新的文件在暂存区，可以提交到版本库，也可以使用<code>git rm --cached</code>命令删除缓存区文件</p>
+</blockquote>
+</li>
+<li><p><span id="配置用户名">配置用户名</span><br>首次提交文件到版本库时，需要告诉git是哪个用户提交的，以后无需再设置，会默认使用该用户名。建议手动配置。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ git config --global user.name <span class="string">"haarlike"</span></span><br><span class="line">$ git config --global user.email haarlike@sina.com</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>该步骤不是必须的（笔者就没有设置），但如果不进行设置，在下面一步提交文件时，可能会失败</p>
+</blockquote>
+</li>
+<li><p>提交文件到版本库</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git commit -m <span class="string">'add test file'</span></span><br></pre></td></tr></table></figure>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">[master (root-commit) cf30c2c] add <span class="built_in">test</span> file</span><br><span class="line"> Committer: haarlike &lt;wl@wldeMacBook-Pro.local&gt;</span><br><span class="line">Your name and email address were configured automatically based</span><br><span class="line">on your username and hostname. Please check that they are accurate.</span><br><span class="line">You can suppress this message by setting them explicitly:</span><br><span class="line"></span><br><span class="line">    git config --global user.name <span class="string">"Your Name"</span></span><br><span class="line">    git config --global user.email you@example.com</span><br><span class="line"></span><br><span class="line">After doing this, you may fix the identity used <span class="keyword">for</span> this commit with:</span><br><span class="line"></span><br><span class="line">    git commit --amend --reset-author</span><br><span class="line"></span><br><span class="line"> 1 file changed, 0 insertions(+), 0 deletions(-)</span><br><span class="line"> create mode 100644 <span class="built_in">test</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p><code>-m</code>参数后是本次提交的说明，通常提交文件都需要作出简要说明，方便他人查看，追溯。这里提示说我未配置用户名和邮箱,自动使用了我的主机名称，也可以使用<code>git config</code>命令来配置。需要注意笔者的本次提交是成功的，最后一句提示新增了一个文件</p>
+</blockquote>
+<p> <em>但是有些用户可能提交失败，报错信息如下</em>：</p>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">*** Please tell me who you are.</span><br><span class="line"></span><br><span class="line">Run</span><br><span class="line"></span><br><span class="line">  git config --global user.email <span class="string">"you@example.com"</span></span><br><span class="line">  git config --global user.name <span class="string">"Your Name"</span></span><br><span class="line"></span><br><span class="line">to <span class="built_in">set</span> your account<span class="string">'s default identity.</span></span><br><span class="line"><span class="string">Omit --global to set the identity only in this repository.</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">fatal: unable to auto-detect email address (got '</span>root@520f14a5d029.(none)<span class="string">')</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>这是因为git在自动使用主机名称这一步失败了，这时候就需要使用<code>git config</code>命令配置下（按<a href="#配置用户名">上一步配置用户名</a>操作）,然后再次使用 <code>git commit</code>提交<br>如果操作正确，将会提示成功:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[master (root-commit) 7898af6] add <span class="built_in">test</span> file</span><br><span class="line"> 1 file changed, 0 insertions(+), 0 deletions(-)</span><br><span class="line"> create mode 100644 <span class="built_in">test</span></span><br></pre></td></tr></table></figure>
+</blockquote>
+</li>
+</ol>
+<ol start="6">
+<li><p>查看状态，日志</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git status</span><br></pre></td></tr></table></figure>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">On branch master</span><br><span class="line">nothing to commit, working tree clean</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>表明当前版本库很干净，无需操作</p>
+</blockquote>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git <span class="built_in">log</span></span><br></pre></td></tr></table></figure>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">commit cf30c2c33046997974a0c55e13ed33f69887b59c</span><br><span class="line">Author: haarlike &lt;wl@wldeMacBook-Pro.local&gt;</span><br><span class="line">Date:   Thu Dec 27 13:13:38 2018 +0800</span><br><span class="line"></span><br><span class="line">    add <span class="built_in">test</span> file</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>可以看到刚提交的日志，第一行是版本号，是一个唯一id,<code>enter</code>查看更多，<code>q</code>退出</p>
+</blockquote>
+</li>
+</ol>
+<h3 id="修改文件"><a href="#修改文件" class="headerlink" title="修改文件"></a>修改文件</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">echo</span> <span class="string">"hello"</span>&gt;&gt;<span class="built_in">test</span></span><br><span class="line">$ git status</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">On branch master</span><br><span class="line">Changes not staged <span class="keyword">for</span> commit:</span><br><span class="line">  (use <span class="string">"git add &lt;file&gt;..."</span> to update what will be committed)</span><br><span class="line">  (use <span class="string">"git checkout -- &lt;file&gt;..."</span> to discard changes <span class="keyword">in</span> working directory)</span><br><span class="line"></span><br><span class="line">	modified:   <span class="built_in">test</span></span><br><span class="line"></span><br><span class="line">no changes added to commit (use <span class="string">"git add"</span> and/or <span class="string">"git commit -a"</span>)</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>提示有文件被修改，但还未添加到暂存区，可以使用<code>git add</code>加入暂存区，也可以使用<code>git checkout</code> 撤销修改</p>
+</blockquote>
+<h3 id="撤销修改"><a href="#撤销修改" class="headerlink" title="撤销修改"></a>撤销修改</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ git checkout <span class="built_in">test</span></span><br><span class="line">$ git status</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">On branch master</span><br><span class="line">nothing to commit, working tree clean</span><br></pre></td></tr></table></figure>
+<h3 id="删除文件"><a href="#删除文件" class="headerlink" title="删除文件"></a>删除文件</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ git rm <span class="built_in">test</span></span><br><span class="line">$ ls</span><br><span class="line">$ git status</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">On branch master</span><br><span class="line">Changes to be committed:</span><br><span class="line">  (use <span class="string">"git reset HEAD &lt;file&gt;..."</span> to unstage)</span><br><span class="line"></span><br><span class="line">	deleted:    <span class="built_in">test</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>这个操作和<code>git add</code>相反，是删除本地文件，并且从暂存区也删除，可以使用<code>git commit</code>提交到版本库,也可以使用 <code>git reset HEAD</code> 恢复</p>
+</blockquote>
+<h3 id="恢复删除"><a href="#恢复删除" class="headerlink" title="恢复删除"></a>恢复删除</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ git reset HEAD <span class="built_in">test</span></span><br><span class="line">$ ls</span><br></pre></td></tr></table></figure>
+<h3 id="协同开发"><a href="#协同开发" class="headerlink" title="协同开发"></a>协同开发</h3><p>在有多人,或者多台电脑上开发的时候，需要有一台服务器作为文件交换。可以自行搭建，也可以使用github这一类免费服务。本文不讲解如何搭建服务端，假定远端仓库已经创建好，地址为 <a href="mailto:git@x.x.x.x" target="_blank" rel="noopener">git@x.x.x.x</a>:demo</p>
+<h4 id="设置权限"><a href="#设置权限" class="headerlink" title="设置权限"></a>设置权限</h4><p>github免费仓库是公开下载权限的，但是上传是需要授权验证，自建服务可以自行设置。推荐使用公钥认证方式，免得每次输入账号密码。这里说明以下公钥、私钥创建过程，服务端配置这里不再赘述。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ ssh-keygen</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">Generating public/private rsa key pair.</span><br><span class="line">Enter file <span class="keyword">in</span> <span class="built_in">which</span> to save the key (/root/.ssh/id_rsa):</span><br><span class="line">Created directory <span class="string">'/root/.ssh'</span>.</span><br><span class="line">Enter passphrase (empty <span class="keyword">for</span> no passphrase):</span><br><span class="line">Enter same passphrase again:</span><br><span class="line">Your identification has been saved <span class="keyword">in</span> /root/.ssh/id_rsa.</span><br><span class="line">Your public key has been saved <span class="keyword">in</span> /root/.ssh/id_rsa.pub.</span><br><span class="line">The key fingerprint is:</span><br><span class="line">SHA256:lh+aEuj17/S/LBGGXDF6zojgOh9TBF+C6bMyQ6cfpf8 root@520f14a5d029</span><br><span class="line">The key<span class="string">'s randomart image is:</span></span><br><span class="line"><span class="string">+---[RSA 2048]----+</span></span><br><span class="line"><span class="string">|      .o. . o.   |</span></span><br><span class="line"><span class="string">|      oo o ...   |</span></span><br><span class="line"><span class="string">|     .. o..o.    |</span></span><br><span class="line"><span class="string">|    .o+o.oo=o    |</span></span><br><span class="line"><span class="string">|   ..o+=S o.o.   |</span></span><br><span class="line"><span class="string">|   .=o+= + ..    |</span></span><br><span class="line"><span class="string">|    +=+o+ o  .   |</span></span><br><span class="line"><span class="string">|     o.+.o ...   |</span></span><br><span class="line"><span class="string">|      .  oE .o+. |</span></span><br><span class="line"><span class="string">+----[SHA256]-----+</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>这里有3处提示用户输入的地方，直接<code>enter</code>就可以了。第一次是然输入私钥存储路径；第二次是然输入私钥密码；第三次确认密码。建议都直接<code>enter</code>默认。如果自定义了存储路径，后面在使用的时候都需要手动配置；如果设置了密码，在多数环境下，使用的时候就会让输入密码。</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">cd</span>  /root/.ssh/</span><br><span class="line">$ ls -l</span><br></pre></td></tr></table></figure>
+<p><code>id_rsa</code> 是生成的私钥，不要随意公开<br><code>id_rsa.pub</code> 是对应的公钥，可以公开。 可以自行在github添加，或者提供给git服务器管理员</p>
+<h4 id="关联远端仓库"><a href="#关联远端仓库" class="headerlink" title="关联远端仓库"></a>关联远端仓库</h4><p>若本地仓库是通过 <code>git clone git@x.x.x.x:demo</code> 创建，则无需设置。<br>若本地仓库是通过 <code>git init demo</code> 创建，则需要按照下面方式进行关联:<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git remote add origin git@x.x.x.x:demo</span><br></pre></td></tr></table></figure></p>
+<p><code>origin</code> 是远端仓库名称（一般默认都是这个）<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git push orgin</span><br></pre></td></tr></table></figure></p>
+<h4 id="pull-amp-amp-push"><a href="#pull-amp-amp-push" class="headerlink" title="pull&amp;&amp;push"></a>pull&amp;&amp;push</h4><p>在多人协同开发时，通常是先拉取远端文件到本地，保证本地版本和远端一致，然后提交本地文件，再推送到远端:<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ touch push_test</span><br><span class="line">$ git add push_test</span><br><span class="line">$ git commit <span class="string">'add push test file'</span></span><br><span class="line">$ git pull</span><br></pre></td></tr></table></figure></p>
+<blockquote>
+<p>执行完<code>git pull</code>之后，会有两种情况</p>
+</blockquote>
+<p>本地和远端版本一致时:<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Already up-to-date.</span><br></pre></td></tr></table></figure></p>
+<p>本地版本落后，拉取到远端最新版本文件时：此时git将尝试合并更新，弹出一个<code>vi</code>编辑界面，提示输入本次注释说明，可以直接<code>:q</code>退出<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Merge made by the <span class="string">'recursive'</span> strategy.</span><br></pre></td></tr></table></figure></p>
+<blockquote>
+<p>如果其他人和自己修改了相同的文件，本次拉取后，可能会造成文件冲突，<code>git</code>会先帮我们合并文件，但是如果修改了同一个地方的内容，<code>git</code>将会合并失败，会在文件内容中标出冲突的区域，需要我们手动解决冲突（参考<a href="#常见错误">常见错误</a>）。</p>
+</blockquote>
+<p>假设本次没有产生文件冲突，则可以直接推送文件到远端服务器:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git push</span><br></pre></td></tr></table></figure></p>
+<h2 id="常见错误"><a href="#常见错误" class="headerlink" title="常见错误"></a>常见错误</h2><p>下面是一些新手常见的错误，很好解决。由于笔者书写本文时，不能一一复现错误问题，所以打算在后续使用过程中，遇到的时候再添加进来。</p>
+<h3 id="git-pull合并失败"><a href="#git-pull合并失败" class="headerlink" title="git pull合并失败"></a><code>git pull</code>合并失败</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">warning: no common commits</span><br><span class="line">remote: Counting objects: 6, <span class="keyword">done</span>.</span><br><span class="line">remote: Compressing objects: 100% (2/2), <span class="keyword">done</span>.</span><br><span class="line">remote: Total 6 (delta 0), reused 0 (delta 0)</span><br><span class="line">Unpacking objects: 100% (6/6), <span class="keyword">done</span>.</span><br><span class="line">From x.x.x.x:demo</span><br><span class="line"> * [new branch]      master     -&gt; origin/master</span><br><span class="line">fatal: refusing to merge unrelated histories</span><br></pre></td></tr></table></figure>
+<p>原因：通常出现在版本库初始化后，向仓库添加新的文件，但是该文件已经有人创建提交到远端仓库了。<br>解决：使用<code>git pull origin master --allow-unrelated-histories</code>。或者使用<code>git clone</code>克隆一份最新的版本，然后再加入自己的文件（建议此办法）。</p>
+<h3 id="git-pull文件冲突"><a href="#git-pull文件冲突" class="headerlink" title="git pull文件冲突"></a><code>git pull</code>文件冲突</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">From x.x.x.x:demo</span><br><span class="line"> * branch            master     -&gt; FETCH_HEAD</span><br><span class="line">Auto-merging <span class="built_in">test</span></span><br><span class="line">CONFLICT (add/add): Merge conflict <span class="keyword">in</span> <span class="built_in">test</span></span><br><span class="line">Automatic merge failed; fix conflicts and <span class="keyword">then</span> commit the result.</span><br></pre></td></tr></table></figure>
+<p>使用<code>git status</code>查看状态：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">On branch master</span><br><span class="line">Your branch and <span class="string">'origin/master'</span> have diverged,</span><br><span class="line">and have 1 and 2 different commits each, respectively.</span><br><span class="line">  (use <span class="string">"git pull"</span> to merge the remote branch into yours)</span><br><span class="line"></span><br><span class="line">You have unmerged paths.</span><br><span class="line">  (fix conflicts and run <span class="string">"git commit"</span>)</span><br><span class="line">  (use <span class="string">"git merge --abort"</span> to abort the merge)</span><br><span class="line"></span><br><span class="line">Unmerged paths:</span><br><span class="line">  (use <span class="string">"git add &lt;file&gt;..."</span> to mark resolution)</span><br><span class="line"></span><br><span class="line">        both added:      <span class="built_in">test</span></span><br><span class="line"></span><br><span class="line">no changes added to commit (use <span class="string">"git add"</span> and/or <span class="string">"git commit -a"</span>)</span><br></pre></td></tr></table></figure></p>
+<p>查看文件，有冲突内容标注：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD</span><br><span class="line">--这是我的提交内容</span><br><span class="line">=======</span><br><span class="line">==这是他人的提交内容</span><br><span class="line">&gt;&gt;&gt;&gt;&gt;&gt;&gt; bdf9be17c36bae6f775f9b967c12bfcb435ddfcc</span><br></pre></td></tr></table></figure></p>
+<p>原因：其他人和自己修改了相同文件，git不知道应该保留谁的内容，只能手动解决<br>解决：打开文件，找到冲突位置，手动处理后，重新提交</p>
+<h3 id="git-commit-报错"><a href="#git-commit-报错" class="headerlink" title="git commit 报错"></a><code>git commit</code> 报错</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">*** Please tell me who you are.</span><br><span class="line"></span><br><span class="line">Run</span><br><span class="line"></span><br><span class="line">  git config --global user.email <span class="string">"you@example.com"</span></span><br><span class="line">  git config --global user.name <span class="string">"Your Name"</span></span><br><span class="line"></span><br><span class="line">to <span class="built_in">set</span> your account<span class="string">'s default identity.</span></span><br><span class="line"><span class="string">Omit --global to set the identity only in this repository.</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">fatal: unable to auto-detect email address (got '</span>root@520f14a5d029.(none)<span class="string">')</span></span><br></pre></td></tr></table></figure>
+<p>原因：没有设置git用户名，且系统无法自动根据主机信息设置<br>解决：按照提示，使用<code>git config</code> 设置</p>
+<h3 id="git-push报错"><a href="#git-push报错" class="headerlink" title="git push报错"></a><code>git push</code>报错</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">To x.x.x.x:demo</span><br><span class="line"> ! [rejected]        master -&gt; master (fetch first)</span><br><span class="line">error: failed to push some refs to <span class="string">'git@x.x.x.x:demo'</span></span><br><span class="line">hint: Updates were rejected because the remote contains work that you <span class="keyword">do</span></span><br><span class="line">hint: not have locally. This is usually caused by another repository pushing</span><br><span class="line">hint: to the same ref. You may want to first integrate the remote changes</span><br><span class="line">hint: (e.g., <span class="string">'git pull ...'</span>) before pushing again.</span><br><span class="line">hint: See the <span class="string">'Note about fast-forwards'</span> <span class="keyword">in</span> <span class="string">'git push --help'</span> <span class="keyword">for</span> details.</span><br></pre></td></tr></table></figure>
+<p>原因：本地版本落后于远端，在没有使用<code>git pull</code>的前提下，直接<code>git push</code>。<br>解决：先<code>git pull</code>，再<code>git push</code></p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/工具/" rel="tag"><i class="fa fa-tag"></i> 工具</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/11/vim-doc/" rel="next" title="vim基本操作+常用命令">
+                <i class="fa fa-chevron-left"></i> vim基本操作+常用命令
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/01/phalcon-model-batch/" rel="prev" title="Phalcon批量更新数据">
+                Phalcon批量更新数据 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">haarlike</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">4</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">4</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">2</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="mailto:haarlike@sina.com" title="E-Mail &rarr; mailto:haarlike@sina.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                </span>
+              
+            </div>
+          
+
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                友情链接
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://www.mdvtrw.com" title="http://www.mdvtrw.com" rel="noopener" target="_blank">Medivh</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#简介"><span class="nav-number">1.</span> <span class="nav-text">简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#入门"><span class="nav-number">2.</span> <span class="nav-text">入门</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#安装git"><span class="nav-number">2.1.</span> <span class="nav-text">安装git</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#创建版本库"><span class="nav-number">2.2.</span> <span class="nav-text">创建版本库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#新增文件"><span class="nav-number">2.3.</span> <span class="nav-text">新增文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#修改文件"><span class="nav-number">2.4.</span> <span class="nav-text">修改文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#撤销修改"><span class="nav-number">2.5.</span> <span class="nav-text">撤销修改</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#删除文件"><span class="nav-number">2.6.</span> <span class="nav-text">删除文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#恢复删除"><span class="nav-number">2.7.</span> <span class="nav-text">恢复删除</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#协同开发"><span class="nav-number">2.8.</span> <span class="nav-text">协同开发</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#设置权限"><span class="nav-number">2.8.1.</span> <span class="nav-text">设置权限</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#关联远端仓库"><span class="nav-number">2.8.2.</span> <span class="nav-text">关联远端仓库</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#pull-amp-amp-push"><span class="nav-number">2.8.3.</span> <span class="nav-text">pull&amp;&amp;push</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#常见错误"><span class="nav-number">3.</span> <span class="nav-text">常见错误</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#git-pull合并失败"><span class="nav-number">3.1.</span> <span class="nav-text">git pull合并失败</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#git-pull文件冲突"><span class="nav-number">3.2.</span> <span class="nav-text">git pull文件冲突</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#git-commit-报错"><span class="nav-number">3.3.</span> <span class="nav-text">git commit 报错</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#git-push报错"><span class="nav-number">3.4.</span> <span class="nav-text">git push报错</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+        <div class="back-to-top">
+          <i class="fa fa-arrow-up"></i>
+          
+            <span id="scrollpercent"><span>0</span>%</span>
+          
+        </div>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">haarlike</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+    <span title="站点总字数">19k</span>
+  
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    
+    <span title="站点阅读时长">17 分钟</span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  
+    <script src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script src="/lib/reading_progress/reading_progress.js"></script>
+  
+
+
+  
+
+
+  <script src="/js/src/utils.js?v=6.6.0"></script>
+
+  <script src="/js/src/motion.js?v=6.6.0"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/src/affix.js?v=6.6.0"></script>
+
+  <script src="/js/src/schemes/pisces.js?v=6.6.0"></script>
+
+
+
+  
+  <script src="/js/src/scrollspy.js?v=6.6.0"></script>
+<script src="/js/src/post-details.js?v=6.6.0"></script>
+
+
+
+  
+
+
+  <script src="/js/src/bootstrap.js?v=6.6.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  
+  
+  <script src="//cdn.jsdelivr.net/npm/valine/dist/Valine.min.js"></script>
+
+  <script>
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(function (item) {
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: false,
+        appId: 'gQN1k5KsztKmMcgvEa47WeJF-gzGzoHsz',
+        appKey: 'enqLoY5r90QAACU8oLpARHvL',
+        placeholder: 'Just go go',
+        avatar:'mm',
+        meta:guest,
+        pageSize:'10' || 10,
+        visitor: false
+    });
+  </script>
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  <style>
+    .copy-btn {
+      display: inline-block;
+      padding: 6px 12px;
+      font-size: 13px;
+      font-weight: 700;
+      line-height: 20px;
+      color: #333;
+      white-space: nowrap;
+      vertical-align: middle;
+      cursor: pointer;
+      background-color: #eee;
+      background-image: linear-gradient(#fcfcfc, #eee);
+      border: 1px solid #d5d5d5;
+      border-radius: 3px;
+      user-select: none;
+      outline: 0;
+    }
+
+    .highlight-wrap .copy-btn {
+      transition: opacity .3s ease-in-out;
+      opacity: 0;
+      padding: 2px 6px;
+      position: absolute;
+      right: 4px;
+      top: 8px;
+    }
+
+    .highlight-wrap:hover .copy-btn,
+    .highlight-wrap .copy-btn:focus {
+      opacity: 1
+    }
+
+    .highlight-wrap {
+      position: relative;
+    }
+  </style>
+  <script>
+    $('.highlight').each(function (i, e) {
+      var $wrap = $('<div>').addClass('highlight-wrap');
+      $(e).after($wrap);
+      $wrap.append($('<button>').addClass('copy-btn').append('复制').on('click', function (e) {
+        var code = $(this).parent().find('.code').find('.line').map(function (i, e) {
+          return $(e).text();
+        }).toArray().join('\n');
+        var ta = document.createElement('textarea');
+        var range = document.createRange(); //For Chrome
+        var sel = window.getSelection(); //For Chrome
+        var yPosition = window.pageYOffset || document.documentElement.scrollTop;
+        ta.style.top = yPosition + 'px'; //Prevent page scroll
+        ta.style.position = 'absolute';
+        ta.style.opacity = '0';
+        ta.value = code;
+        ta.textContent = code; //For FireFox
+        ta.contentEditable = true;
+        ta.readOnly = false;
+        document.body.appendChild(ta);
+        range.selectNode(ta);
+        sel.removeAllRanges();
+        sel.addRange(range);
+        ta.setSelectionRange(0, code.length);
+        var result = document.execCommand('copy');
+        
+        ta.blur(); //For iOS
+        $(this).blur();
+      })).on('mouseleave', function (e) {
+        var $b = $(this).find('.copy-btn');
+        setTimeout(function () {
+          $b.text('复制');
+        }, 300);
+      }).append(e);
+    })
+  </script>
+
+
+  
+
+</body>
+</html>
