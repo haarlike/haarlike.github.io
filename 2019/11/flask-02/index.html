@@ -1,0 +1,1058 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=6.6.0" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/hasnote/180.png?v=6.6.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/hasnote/32.png?v=6.6.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/hasnote/16.png?v=6.6.0">
+
+
+  <link rel="mask-icon" href="/images/hasnote/600.svg?v=6.6.0" color="#222">
+
+
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '6.6.0',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":true,"scrollpercent":true,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="flask扩展Flask标准框架内，并没有封装数据库操作。不过开发者共享了很多扩展包，其中Flask-SQLAlchemy就是我们接下来要说到的。Flask 的扩展通常命名为“ Flask-Foo ”者“ Foo-Flask ”，可以在PyPi进行搜索 。地址 https://pypi.org/search/?c=Framework%20::%20Flask 数据库操作普通模块如果仅仅是做测试，或">
+<meta property="og:type" content="article">
+<meta property="og:title" content="flask数据库操作">
+<meta property="og:url" content="https://www.hasnote.com/2019/11/flask-02/index.html">
+<meta property="og:site_name" content="有记">
+<meta property="og:description" content="flask扩展Flask标准框架内，并没有封装数据库操作。不过开发者共享了很多扩展包，其中Flask-SQLAlchemy就是我们接下来要说到的。Flask 的扩展通常命名为“ Flask-Foo ”者“ Foo-Flask ”，可以在PyPi进行搜索 。地址 https://pypi.org/search/?c=Framework%20::%20Flask 数据库操作普通模块如果仅仅是做测试，或">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-12-02T06:44:22.903Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="flask数据库操作">
+<meta name="twitter:description" content="flask扩展Flask标准框架内，并没有封装数据库操作。不过开发者共享了很多扩展包，其中Flask-SQLAlchemy就是我们接下来要说到的。Flask 的扩展通常命名为“ Flask-Foo ”者“ Foo-Flask ”，可以在PyPi进行搜索 。地址 https://pypi.org/search/?c=Framework%20::%20Flask 数据库操作普通模块如果仅仅是做测试，或">
+
+
+
+
+
+
+  <link rel="canonical" href="https://www.hasnote.com/2019/11/flask-02/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>flask数据库操作 | 有记</title>
+  
+
+
+
+
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?ddc032293fdd2e965276a1b26273ca8a";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion .logo-line-before i { left: initial; }
+    .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">有记</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <p class="site-subtitle">大道至简，知易行难</p>
+      
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+    <div class="reading-progress-bar"></div>
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://www.hasnote.com/2019/11/flask-02/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="haarlike">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="有记">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">flask数据库操作
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-11-29 12:03:33" itemprop="dateCreated datePublished" datetime="2019-11-29T12:03:33+08:00">2019-11-29</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-12-02 14:44:22" itemprop="dateModified" datetime="2019-12-02T14:44:22+08:00">2019-12-02</time>
+              
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2019/11/flask-02/#comments" itemprop="discussionUrl">
+                  <span class="post-meta-item-text">评论数：</span> <span class="post-comments-count valine-comment-count" data-xid="/2019/11/flask-02/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-symbolscount">
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">本文字数：</span>
+                
+                <span title="本文字数">5.8k</span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">5 分钟</span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="flask扩展"><a href="#flask扩展" class="headerlink" title="flask扩展"></a>flask扩展</h2><p>Flask标准框架内，并没有封装数据库操作。不过开发者共享了很多扩展包，其中Flask-SQLAlchemy就是我们接下来要说到的。Flask 的扩展通常命名为“ Flask-Foo ”者“ Foo-Flask ”，可以在PyPi进行搜索 。<br>地址 <a href="https://pypi.org/search/?c=Framework%20::%20Flask" target="_blank" rel="noopener">https://pypi.org/search/?c=Framework%20::%20Flask</a></p>
+<h2 id="数据库操作"><a href="#数据库操作" class="headerlink" title="数据库操作"></a>数据库操作</h2><h3 id="普通模块"><a href="#普通模块" class="headerlink" title="普通模块"></a>普通模块</h3><p>如果仅仅是做测试，或者小型项目，可以直接使用SQLite ，Python已经内置了SQLite3模块，可以很方便的使用，这里就不多介绍，官方也有相关文档。<br>地址 <a href="https://flask.palletsprojects.com/en/1.1.x/tutorial/database/" target="_blank" rel="noopener">https://flask.palletsprojects.com/en/1.1.x/tutorial/database/</a></p>
+<h2 id="SQLAlchemy"><a href="#SQLAlchemy" class="headerlink" title="SQLAlchemy"></a>SQLAlchemy</h2><h3 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h3><p>传说SQLAlchemy是Python世界中最广泛使用的ORM框架。它支持 SQLite, Postgresql, MySQL, Oracle等等数据库，更多特性可以看以下官方说明<br>地址 <a href="https://www.sqlalchemy.org/features.html" target="_blank" rel="noopener">https://www.sqlalchemy.org/features.html</a></p>
+<h3 id="Flask-SQLAlchemy"><a href="#Flask-SQLAlchemy" class="headerlink" title="Flask-SQLAlchemy"></a>Flask-SQLAlchemy</h3><p>SQLAlchemy 需要一定的配置才能使用,官方提供了一个扩展可以快速开始使用，并且给到一个SQLite操作的案例<br>简介 <a href="https://flask.palletsprojects.com/en/1.1.x/patterns/sqlalchemy/" target="_blank" rel="noopener">https://flask.palletsprojects.com/en/1.1.x/patterns/sqlalchemy/</a><br>更多 <a href="https://flask-sqlalchemy.palletsprojects.com/en/2.x/" target="_blank" rel="noopener">https://flask-sqlalchemy.palletsprojects.com/en/2.x/</a></p>
+<p>我们以Mysql数据库为例，看看如何使用这个神器</p>
+<h4 id="准备"><a href="#准备" class="headerlink" title="准备"></a>准备</h4><p>使用Pip安装所需模块，这里使用<code>pymysql</code>作为链接mysql的驱动</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ pip install pymysql</span><br><span class="line">$ pip install Flask-SQLAlchemy</span><br></pre></td></tr></table></figure>
+<p>本地创建数据库，名称为flask</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">CREATE DATABASE flask DEFAULT CHARSET utf8 COLLATE utf8_general_ci;</span><br></pre></td></tr></table></figure>
+<p>在应用入口文件(接上一篇，依旧是<code>hello.py</code>)中初始化数据库链接</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">from flask_sqlalchemy import SQLAlchemy</span><br><span class="line"></span><br><span class="line">app = Flask(__name__)</span><br><span class="line">app.config[&apos;SQLALCHEMY_DATABASE_URI&apos;] = &apos;mysql+pymysql://root:root@localhost:3306/flask&apos;</span><br><span class="line">app.config[&apos;SQLALCHEMY_TRACK_MODIFICATIONS&apos;] = False</span><br><span class="line">db = SQLAlchemy(app)</span><br></pre></td></tr></table></figure>
+<h4 id="建表"><a href="#建表" class="headerlink" title="建表"></a>建表</h4><p>创建<code>user.py</code>文件，声明<code>User</code>模型</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"># -*- encoding: utf-8 -*-</span><br><span class="line">from hello import db  # 导入app文件中的SQLAlchemy对象</span><br><span class="line"></span><br><span class="line">class User(db.Model):  # 继承SQLAlchemy.Model对象</span><br><span class="line">    __tablename__ = &apos;users&apos; #可以不写,默认为小写表名</span><br><span class="line">    id= db.Column(db.Integer, primary_key=True, autoincrement=True)  # id 整型，主键，自增</span><br><span class="line">    name = db.Column(db.String(50), nullable=False)  # 名字 字符串长度为50</span><br><span class="line">    sex = db.Column(db.Integer, default=0)  # 性别 整型，默认为0</span><br></pre></td></tr></table></figure>
+<p>字段类型，可以参考SQLAlchemy文档 <a href="https://docs.sqlalchemy.org/en/13/core/type_basics.html" target="_blank" rel="noopener">https://docs.sqlalchemy.org/en/13/core/type_basics.html</a></p>
+<p>创建<code>users</code>表,可以手动SQL创建，也可以使用下面的方式创建<br>在应用目录，打开<code>python</code>交互shell，进行操作</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ python</span><br><span class="line">&gt;&gt;&gt; from hello import db</span><br><span class="line">&gt;&gt;&gt; from user import User</span><br><span class="line">&gt;&gt;&gt; db.create_all()</span><br><span class="line">&gt;&gt;&gt; exit()</span><br></pre></td></tr></table></figure>
+<p>不出意外，查看一下数据库，应该可以看到<code>users</code>表已经创建成功</p>
+<h4 id="数据操作"><a href="#数据操作" class="headerlink" title="数据操作"></a>数据操作</h4><p>在<code>hello.py</code>文件中，添加路由，测试数据操作</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line">@app.route(&quot;/user/create&quot;)</span><br><span class="line">def user_create():</span><br><span class="line">    from user import User</span><br><span class="line">    from hello import db</span><br><span class="line">    u = User(name=&quot;tony&quot;, sex=1)</span><br><span class="line">    try:</span><br><span class="line">        db.session.add(u)</span><br><span class="line">        db.session.commit()</span><br><span class="line">        return &quot;create success&quot;</span><br><span class="line">    except:</span><br><span class="line">	    return &quot;create failed&quot;</span><br><span class="line"></span><br><span class="line">@app.route(&quot;/user/tony&quot;)</span><br><span class="line">def user_info():</span><br><span class="line">    from user import User</span><br><span class="line">    try:</span><br><span class="line">        u = User.query.filter_by(name=&apos;tony&apos;).first()</span><br><span class="line">        return &quot;username:&quot;+u.name</span><br><span class="line">    except:</span><br><span class="line">    	return &quot;find failed&quot;</span><br><span class="line"></span><br><span class="line">@app.route(&quot;/user/update&quot;)</span><br><span class="line">def user_update():</span><br><span class="line">    from user import User</span><br><span class="line">    from hello import db</span><br><span class="line">    try:</span><br><span class="line">        u = User.query.filter_by(name=&apos;tony&apos;).first()</span><br><span class="line">	u.name=&apos;roy&apos;</span><br><span class="line">        db.session.commit()</span><br><span class="line">        return &quot;update success&quot;</span><br><span class="line">    except:</span><br><span class="line">    	return &quot;update failed&quot;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">@app.route(&quot;/user/delete&quot;)</span><br><span class="line">def user_delete():</span><br><span class="line">    from user import User</span><br><span class="line">    from hello import db</span><br><span class="line">    try:</span><br><span class="line">        u = User.query.filter_by(name=&apos;roy&apos;).first()</span><br><span class="line">	    db.session.delete(u)</span><br><span class="line">	    db.session.commit()</span><br><span class="line">        return &quot;delete success&quot;</span><br><span class="line">    except:</span><br><span class="line">    	return &quot;delete failed&quot;</span><br></pre></td></tr></table></figure>
+<p>更多操作，这里不再赘述，可以查看相关文档<br>地址 <a href="https://docs.sqlalchemy.org/en/13/" target="_blank" rel="noopener">https://docs.sqlalchemy.org/en/13/</a></p>
+<h2 id="结构设计"><a href="#结构设计" class="headerlink" title="结构设计"></a>结构设计</h2><h3 id="问题思考"><a href="#问题思考" class="headerlink" title="问题思考"></a>问题思考</h3><p>上面的示例其实很糟糕，官方文档的一些示例也一样。只是为了简述如何使用，所以没有设计代码结构，本例中存在两个明显问题，也是开发中常常遇到的。</p>
+<ol>
+<li>依赖包循环导入错误，user正在从hello中导入db，导致hello中无法导入user。</li>
+<li>视图函数中的user模型一旦进行数据库操作，将会自动关联当前线程的db session。此时若再使用db session进行操作，可能会造成不同线程session混乱错误。</li>
+<li>虽然将import放在函数内部执行，解决上述问题，但在实际开发过程中，这并不是好的解决办法。Flask非常灵活，官方并没有限制目录结构，在开发初期就设计好应用结构，避免此类问题发生。</li>
+</ol>
+<h3 id="Flask方案"><a href="#Flask方案" class="headerlink" title="Flask方案"></a>Flask方案</h3><p>下面对应用做一下结构调整，<code>flask_db</code>是项目根目录，目录结构如下</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">/flask_db</span><br><span class="line">    /run.py</span><br><span class="line">    /application</span><br><span class="line">        /__init__.py</span><br><span class="line">        /app.py</span><br><span class="line">        /db.py</span><br><span class="line">        /controllers</span><br><span class="line">            /__init__.py</span><br><span class="line">            /user.py</span><br><span class="line">        /models</span><br><span class="line">            /__init__.py</span><br><span class="line">            /user.py</span><br></pre></td></tr></table></figure>
+<p><code>run.py</code>为程序运行入口,内容如下</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">from application.app import app</span><br><span class="line"></span><br><span class="line">if __name__ == &apos;__main__&apos;:</span><br><span class="line">    app.run(debug=True)</span><br></pre></td></tr></table></figure>
+<p><code>application/app.py</code> 初始化app、拦截路由,内容如下</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">from flask import Flask</span><br><span class="line"></span><br><span class="line">app = Flask(__name__)</span><br><span class="line"></span><br><span class="line">from application.controllers.user import UserController</span><br><span class="line"></span><br><span class="line">@app.route(&quot;/user/create&quot;)</span><br><span class="line">def user_create():</span><br><span class="line">    u =UserController()</span><br><span class="line">    return u.create()</span><br><span class="line"></span><br><span class="line">@app.route(&quot;/user/update&quot;)</span><br><span class="line">def user_update():</span><br><span class="line">    u =UserController()</span><br><span class="line">    return u.update(&apos;tony&apos;)</span><br></pre></td></tr></table></figure>
+<p><code>application/db.py</code> 初始化数据库链接，内容如下</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">from application.app import app</span><br><span class="line"></span><br><span class="line">from flask_sqlalchemy import SQLAlchemy</span><br><span class="line"></span><br><span class="line">app.config[&apos;SQLALCHEMY_DATABASE_URI&apos;] = &apos;mysql+pymysql://root:root@localhost:3306/flask&apos;</span><br><span class="line">app.config[&apos;SQLALCHEMY_TRACK_MODIFICATIONS&apos;] = False</span><br><span class="line">db = SQLAlchemy(app)</span><br></pre></td></tr></table></figure>
+<p><code>controllers/user.py</code> 处理业务相关，内容如下</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">from application.db import db</span><br><span class="line">from application.models.user import User</span><br><span class="line">class UserController:</span><br><span class="line">    def create(self):</span><br><span class="line">    	u = User(name=&quot;tony&quot;, sex=1)</span><br><span class="line">    	try:</span><br><span class="line">            db.session.add(u)</span><br><span class="line">            db.session.commit()</span><br><span class="line">            return &quot;create success&quot;</span><br><span class="line">        except:</span><br><span class="line">            return &quot;create failed&quot;</span><br><span class="line"></span><br><span class="line">    def update(self,name):</span><br><span class="line">        try:</span><br><span class="line">            u = User.query.filter_by(name=name).first()</span><br><span class="line">	    u.name=&apos;roy&apos;</span><br><span class="line">            db.session.commit()</span><br><span class="line">            return &quot;update success&quot;</span><br><span class="line">        except:</span><br><span class="line">    	    return &quot;update failed&quot;</span><br></pre></td></tr></table></figure>
+<p><code>models/user.py</code>定义模型，内容如下</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"># -*- encoding: utf-8 -*-</span><br><span class="line">from application.db import db  # 导入db.py文件中的SQLAlchemy对象</span><br><span class="line"></span><br><span class="line">class User(db.Model):  # 继承SQLAlchemy.Model对象</span><br><span class="line">    __tablename__ = &apos;users&apos; #指定表名,若表名和model名一样，可以不写</span><br><span class="line">    id= db.Column(db.Integer, primary_key=True, autoincrement=True)  # id 整型，主键，自增</span><br><span class="line">    name = db.Column(db.String(50), nullable=False)  # 名字 字符串长度为50</span><br><span class="line">    sex = db.Column(db.Integer, default=0)  # 性别 整型，默认为0</span><br></pre></td></tr></table></figure>
+<p>通过上面的简单划分，可以较为清晰的理解如何基于功能来设计项目结构，在这基础上还可以对路由层、逻辑层等再进行划分，或者根据多应用模块进行划分，总之目的是让应用代码层次清晰，便于维护。</p>
+<p>官方文档在Flask方案章节，也有针对大型应用设计的更加详细的说明</p>
+<p>地址 <a href="https://flask.palletsprojects.com/en/1.1.x/patterns/" target="_blank" rel="noopener">https://flask.palletsprojects.com/en/1.1.x/patterns/</a></p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/11/flask-01/" rel="next" title="Flask简介">
+                <i class="fa fa-chevron-left"></i> Flask简介
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/11/flask-03/" rel="prev" title="flask视图及Session">
+                flask视图及Session <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">haarlike</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">9</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">4</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">2</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="mailto:haarlike@sina.com" title="E-Mail &rarr; mailto:haarlike@sina.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                </span>
+              
+            </div>
+          
+
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                友情链接
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://www.mdvtrw.com" title="http://www.mdvtrw.com" rel="noopener" target="_blank">Medivh</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#flask扩展"><span class="nav-number">1.</span> <span class="nav-text">flask扩展</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数据库操作"><span class="nav-number">2.</span> <span class="nav-text">数据库操作</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#普通模块"><span class="nav-number">2.1.</span> <span class="nav-text">普通模块</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SQLAlchemy"><span class="nav-number">3.</span> <span class="nav-text">SQLAlchemy</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#简介"><span class="nav-number">3.1.</span> <span class="nav-text">简介</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Flask-SQLAlchemy"><span class="nav-number">3.2.</span> <span class="nav-text">Flask-SQLAlchemy</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#准备"><span class="nav-number">3.2.1.</span> <span class="nav-text">准备</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#建表"><span class="nav-number">3.2.2.</span> <span class="nav-text">建表</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#数据操作"><span class="nav-number">3.2.3.</span> <span class="nav-text">数据操作</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#结构设计"><span class="nav-number">4.</span> <span class="nav-text">结构设计</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#问题思考"><span class="nav-number">4.1.</span> <span class="nav-text">问题思考</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Flask方案"><span class="nav-number">4.2.</span> <span class="nav-text">Flask方案</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+        <div class="back-to-top">
+          <i class="fa fa-arrow-up"></i>
+          
+            <span id="scrollpercent"><span>0</span>%</span>
+          
+        </div>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">haarlike</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+    <span title="站点总字数">35k</span>
+  
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    
+    <span title="站点阅读时长">32 分钟</span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  
+    <script src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script src="/lib/reading_progress/reading_progress.js"></script>
+  
+
+
+  
+
+
+  <script src="/js/src/utils.js?v=6.6.0"></script>
+
+  <script src="/js/src/motion.js?v=6.6.0"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/src/affix.js?v=6.6.0"></script>
+
+  <script src="/js/src/schemes/pisces.js?v=6.6.0"></script>
+
+
+
+  
+  <script src="/js/src/scrollspy.js?v=6.6.0"></script>
+<script src="/js/src/post-details.js?v=6.6.0"></script>
+
+
+
+  
+
+
+  <script src="/js/src/bootstrap.js?v=6.6.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  
+  
+  <script src="//cdn.jsdelivr.net/npm/valine/dist/Valine.min.js"></script>
+
+  <script>
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(function (item) {
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: false,
+        appId: 'gQN1k5KsztKmMcgvEa47WeJF-gzGzoHsz',
+        appKey: 'enqLoY5r90QAACU8oLpARHvL',
+        placeholder: 'Just go go',
+        avatar:'mm',
+        meta:guest,
+        pageSize:'10' || 10,
+        visitor: false
+    });
+  </script>
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  <style>
+    .copy-btn {
+      display: inline-block;
+      padding: 6px 12px;
+      font-size: 13px;
+      font-weight: 700;
+      line-height: 20px;
+      color: #333;
+      white-space: nowrap;
+      vertical-align: middle;
+      cursor: pointer;
+      background-color: #eee;
+      background-image: linear-gradient(#fcfcfc, #eee);
+      border: 1px solid #d5d5d5;
+      border-radius: 3px;
+      user-select: none;
+      outline: 0;
+    }
+
+    .highlight-wrap .copy-btn {
+      transition: opacity .3s ease-in-out;
+      opacity: 0;
+      padding: 2px 6px;
+      position: absolute;
+      right: 4px;
+      top: 8px;
+    }
+
+    .highlight-wrap:hover .copy-btn,
+    .highlight-wrap .copy-btn:focus {
+      opacity: 1
+    }
+
+    .highlight-wrap {
+      position: relative;
+    }
+  </style>
+  <script>
+    $('.highlight').each(function (i, e) {
+      var $wrap = $('<div>').addClass('highlight-wrap');
+      $(e).after($wrap);
+      $wrap.append($('<button>').addClass('copy-btn').append('复制').on('click', function (e) {
+        var code = $(this).parent().find('.code').find('.line').map(function (i, e) {
+          return $(e).text();
+        }).toArray().join('\n');
+        var ta = document.createElement('textarea');
+        var range = document.createRange(); //For Chrome
+        var sel = window.getSelection(); //For Chrome
+        var yPosition = window.pageYOffset || document.documentElement.scrollTop;
+        ta.style.top = yPosition + 'px'; //Prevent page scroll
+        ta.style.position = 'absolute';
+        ta.style.opacity = '0';
+        ta.value = code;
+        ta.textContent = code; //For FireFox
+        ta.contentEditable = true;
+        ta.readOnly = false;
+        document.body.appendChild(ta);
+        range.selectNode(ta);
+        sel.removeAllRanges();
+        sel.addRange(range);
+        ta.setSelectionRange(0, code.length);
+        var result = document.execCommand('copy');
+        
+        ta.blur(); //For iOS
+        $(this).blur();
+      })).on('mouseleave', function (e) {
+        var $b = $(this).find('.copy-btn');
+        setTimeout(function () {
+          $b.text('复制');
+        }, 300);
+      }).append(e);
+    })
+  </script>
+
+
+  
+
+</body>
+</html>

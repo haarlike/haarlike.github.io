@@ -104,25 +104,24 @@
 
 
 
-  <meta name="description" content="本文分基础篇、技巧篇和进阶篇三个部分，包含了大部分常用命令，用于帮助新手快速入门。适合刚接触vi的人翻阅，或者作为日常手册查阅，但不包含VIM所有的操作。 基础篇vi、vim 在一般发行的Linux系统中，几乎都默认安装了vi编辑器，具有基本的编辑功能，有必要掌握它的基本用法 vim则是vi编辑器的高级版，具有相对多一些的操作 如果本文以下某些操作在你的vi中无法正常使用，那你就应该安装vim了。">
-<meta name="keywords" content="工具">
+  <meta name="description" content="提起个人博客，恐怕用的最多的是wordpress ,我也使用过wordpress,也反复纠结过使用什么样的博客系统是最合适的，最终我选择了hexo。如果你觉得wordpress太重，如果你只是想写写文章，如果你不想重复造轮子，那么请你一定要知道Hexo这个神器 Hexo简介hexo，是目前为止我用过的，最轻量、最简洁的博客系统，没有后台后台管理，不需要懂PHP、不需要懂Python。只需要懂Mar">
 <meta property="og:type" content="article">
-<meta property="og:title" content="vim基本操作+常用命令">
-<meta property="og:url" content="https://www.hasnote.com/2018/11/vim-doc/index.html">
+<meta property="og:title" content="hexo-快速搭建自己的博客">
+<meta property="og:url" content="https://www.hasnote.com/2019/12/hexo/index.html">
 <meta property="og:site_name" content="有记">
-<meta property="og:description" content="本文分基础篇、技巧篇和进阶篇三个部分，包含了大部分常用命令，用于帮助新手快速入门。适合刚接触vi的人翻阅，或者作为日常手册查阅，但不包含VIM所有的操作。 基础篇vi、vim 在一般发行的Linux系统中，几乎都默认安装了vi编辑器，具有基本的编辑功能，有必要掌握它的基本用法 vim则是vi编辑器的高级版，具有相对多一些的操作 如果本文以下某些操作在你的vi中无法正常使用，那你就应该安装vim了。">
+<meta property="og:description" content="提起个人博客，恐怕用的最多的是wordpress ,我也使用过wordpress,也反复纠结过使用什么样的博客系统是最合适的，最终我选择了hexo。如果你觉得wordpress太重，如果你只是想写写文章，如果你不想重复造轮子，那么请你一定要知道Hexo这个神器 Hexo简介hexo，是目前为止我用过的，最轻量、最简洁的博客系统，没有后台后台管理，不需要懂PHP、不需要懂Python。只需要懂Mar">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-12-26T06:26:27.000Z">
+<meta property="og:updated_time" content="2019-12-02T09:05:45.157Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="vim基本操作+常用命令">
-<meta name="twitter:description" content="本文分基础篇、技巧篇和进阶篇三个部分，包含了大部分常用命令，用于帮助新手快速入门。适合刚接触vi的人翻阅，或者作为日常手册查阅，但不包含VIM所有的操作。 基础篇vi、vim 在一般发行的Linux系统中，几乎都默认安装了vi编辑器，具有基本的编辑功能，有必要掌握它的基本用法 vim则是vi编辑器的高级版，具有相对多一些的操作 如果本文以下某些操作在你的vi中无法正常使用，那你就应该安装vim了。">
+<meta name="twitter:title" content="hexo-快速搭建自己的博客">
+<meta name="twitter:description" content="提起个人博客，恐怕用的最多的是wordpress ,我也使用过wordpress,也反复纠结过使用什么样的博客系统是最合适的，最终我选择了hexo。如果你觉得wordpress太重，如果你只是想写写文章，如果你不想重复造轮子，那么请你一定要知道Hexo这个神器 Hexo简介hexo，是目前为止我用过的，最轻量、最简洁的博客系统，没有后台后台管理，不需要懂PHP、不需要懂Python。只需要懂Mar">
 
 
 
 
 
 
-  <link rel="canonical" href="https://www.hasnote.com/2018/11/vim-doc/">
+  <link rel="canonical" href="https://www.hasnote.com/2019/12/hexo/">
 
 
 
@@ -132,7 +131,7 @@
   };
 </script>
 
-  <title>vim基本操作+常用命令 | 有记</title>
+  <title>hexo-快速搭建自己的博客 | 有记</title>
   
 
 
@@ -347,7 +346,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://www.hasnote.com/2018/11/vim-doc/">
+    <link itemprop="mainEntityOfPage" href="https://www.hasnote.com/2019/12/hexo/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="haarlike">
@@ -364,7 +363,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">vim基本操作+常用命令
+          <h1 class="post-title" itemprop="name headline">hexo-快速搭建自己的博客
 
               
             
@@ -390,46 +389,16 @@
                 
               
 
-              <time title="创建时间：2018-11-03 17:05:58" itemprop="dateCreated datePublished" datetime="2018-11-03T17:05:58+08:00">2018-11-03</time>
+              <time title="创建时间：2019-12-02 15:50:19 / 修改时间：17:05:45" itemprop="dateCreated datePublished" datetime="2019-12-02T15:50:19+08:00">2019-12-02</time>
             
 
             
               
 
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2018-12-26 14:26:27" itemprop="dateModified" datetime="2018-12-26T14:26:27+08:00">2018-12-26</time>
               
             
           </span>
 
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/杂谈/" itemprop="url" rel="index"><span itemprop="name">杂谈</span></a></span>
-
-                
-                
-              
-            </span>
           
 
           
@@ -439,8 +408,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2018/11/vim-doc/#comments" itemprop="discussionUrl">
-                  <span class="post-meta-item-text">评论数：</span> <span class="post-comments-count valine-comment-count" data-xid="/2018/11/vim-doc/" itemprop="commentCount"></span>
+                <a href="/2019/12/hexo/#comments" itemprop="discussionUrl">
+                  <span class="post-meta-item-text">评论数：</span> <span class="post-comments-count valine-comment-count" data-xid="/2019/12/hexo/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -462,7 +431,7 @@
                 
                   <span class="post-meta-item-text">本文字数：</span>
                 
-                <span title="本文字数">2.3k</span>
+                <span title="本文字数">1.9k</span>
               
 
               
@@ -496,161 +465,77 @@
       
 
       
-        <p>本文分基础篇、技巧篇和进阶篇三个部分，包含了大部分常用命令，用于帮助新手快速入门。适合刚接触vi的人翻阅，或者作为日常手册查阅，但不包含VIM所有的操作。</p>
-<h2 id="基础篇"><a href="#基础篇" class="headerlink" title="基础篇"></a>基础篇</h2><h3 id="vi、vim"><a href="#vi、vim" class="headerlink" title="vi、vim"></a>vi、vim</h3><ul>
-<li>在一般发行的Linux系统中，几乎都默认安装了vi编辑器，具有基本的编辑功能，有必要掌握它的基本用法</li>
-<li>vim则是vi编辑器的高级版，具有相对多一些的操作</li>
-<li>如果本文以下某些操作在你的vi中无法正常使用，那你就应该安装vim了。安装过程就不多说，自行使用apt-get、yum 等方式安装</li>
-</ul>
-<h3 id="工作模式"><a href="#工作模式" class="headerlink" title="工作模式"></a>工作模式</h3><p>先来使用vim打开一个文件试试看，filename可以是已存在的文件，也可以不存在<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ vim filename</span><br></pre></td></tr></table></figure></p>
-<p>此时可以看到打开的窗口中有光标闪烁，是不是就可以开始编辑了呢？随便按几个按键试试看，汗…发现不是我们想要的结果。这里就引出了vim的操作模式，模式名称请勿纠结，理解含义即可</p>
-<ul>
-<li>普通模式：也就是刚打开文件的时候，此时可以移动光标，切换模式，按<code>ESC</code>回到该模式</li>
-<li>编辑模式：顾名思义，该模式下可以进行编辑，按<code>i</code>,<code>a</code>等进入该模式</li>
-<li>选择模式：可以选择某段文字，某个区块，按<code>v</code>，<code>C-v</code>进入该模式</li>
-<li>命令模式：可以像编辑器发送一些指令，例如：保存、退出、显示行号等操作，按<code>:</code>进入该模式</li>
-</ul>
-<blockquote>
-<p>所有模式都要从普通模式进入，在其他模式下使用<code>ESC</code>键，即可回到普通模式</p>
-</blockquote>
-<h3 id="基本操作"><a href="#基本操作" class="headerlink" title="基本操作"></a>基本操作</h3><ol>
-<li>当前情况处于普通模式，可进行光标移动操作:</li>
+        <p>提起个人博客，恐怕用的最多的是<code>wordpress</code> ,我也使用过<code>wordpress</code>,也反复纠结过使用什么样的博客系统是最合适的，最终我选择了hexo。如果你觉得<code>wordpress</code>太重，如果你只是想写写文章，如果你不想重复造轮子，那么请你一定要知道<code>Hexo</code>这个神器</p>
+<h2 id="Hexo简介"><a href="#Hexo简介" class="headerlink" title="Hexo简介"></a>Hexo简介</h2><p>hexo，是目前为止我用过的，最轻量、最简洁的博客系统，没有后台后台管理，不需要懂PHP、不需要懂Python。只需要懂<code>Markdown</code>语法,剩下的就是几行命令的事儿。</p>
+<h2 id="准备"><a href="#准备" class="headerlink" title="准备"></a>准备</h2><h3 id="文档"><a href="#文档" class="headerlink" title="文档"></a>文档</h3><p>官网: <a href="https://hexo.io/zh-cn/" target="_blank" rel="noopener">https://hexo.io/zh-cn/</a><br>手册：<a href="https://hexo.io/zh-cn/docs/" target="_blank" rel="noopener">https://hexo.io/zh-cn/docs/</a><br>github：<a href="https://github.com/hexojs/hexo" target="_blank" rel="noopener">https://github.com/hexojs/hexo</a></p>
+<h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><ol>
+<li>环境要求 Git + Node.js (Node.js 版本需不低于 8.6，建议使用 Node.js 10.0 及以上版本)</li>
+<li>本文操作，均是在Mac系统下进行，其他系统类似。命令行下执行</li>
 </ol>
-<ul>
-<li><code>h</code>  左</li>
-<li><code>j</code>  下</li>
-<li><code>k</code>  上</li>
-<li><code>l</code>  右</li>
-</ul>
-<ol start="2">
-<li>使用以下任意命令进入编辑模式:</li>
-</ol>
-<ul>
-<li><code>i</code>  从光标当前位置开始插入</li>
-<li><code>a</code>  从光标当前位置后一位开始插入</li>
-<li><code>o</code>  从光标当前位置下一行开始插入<br>此时想要移动光标，则需要退出编辑模式，按<code>ESC</code>键即可</li>
-</ul>
-<ol start="3">
-<li>保存内容,如果当前在普通模式下，按<code>:</code>进入命令模式,可进行保存、退出等操作</li>
-</ol>
-<ul>
-<li><code>e</code> 刷新内容</li>
-<li><code>w</code> 保存</li>
-<li><code>wq</code> 保存并退出</li>
-<li><code>q!</code> 强制退出</li>
-</ul>
-<blockquote>
-<p>至此，已经可以顺利的编辑并保存一个文件了，但这还不远远不够</p>
-</blockquote>
-<h2 id="技巧篇"><a href="#技巧篇" class="headerlink" title="技巧篇"></a>技巧篇</h2><h3 id="光标移动"><a href="#光标移动" class="headerlink" title="光标移动"></a>光标移动</h3><p>假如仅仅使用<code>h,j,k,l</code>进行光标移动，那是不可忍受的事情，光标一次只能移动一位。下面的操作可以极大提高效率:</p>
-<ul>
-<li><code>w</code> 光标移动到下一个单词的开头</li>
-<li><code>e</code> 光标移动到下一个单词的结尾</li>
-<li><code>0</code> 光标移动到当前行首</li>
-<li><code>^</code> 光标移动到当前行首，非空白位置</li>
-<li><code>$</code> 光标移动到当前行尾</li>
-<li><code>g_</code> 光标移动到当前行尾，非空白位置</li>
-<li><code>gg</code> 光标移动到首行</li>
-<li><code>G</code> 光标移动到末行</li>
-</ul>
-<blockquote>
-<p>可以尝试将命令换成大写，看看有什么效果哦</p>
-</blockquote>
-<h3 id="选择复制粘贴"><a href="#选择复制粘贴" class="headerlink" title="选择复制粘贴"></a>选择复制粘贴</h3><p>在vim中，删除操作基本都属于剪切（非系统剪贴板）</p>
-<ul>
-<li><code>x</code> 删除光标所在（或者选中）的字符</li>
-<li><code>dd</code> 删除光标所在行</li>
-<li><code>yy</code> 复制光标所在行</li>
-<li><code>p</code> 将粘贴板内容粘贴到光标后</li>
-</ul>
-<p>选择复制：</p>
-<ol>
-<li>进入选择模式：</li>
-</ol>
-<ul>
-<li><code>v</code> 字符复制</li>
-<li><code>C-v</code> 区块复制</li>
-<li><code>Shift-v</code> 行复制</li>
-</ul>
-<ol start="2">
-<li>移动光标进行选择</li>
-<li>复制粘贴</li>
-</ol>
-<ul>
-<li><code>y</code> 复制选中内容</li>
-<li><code>p</code> 粘贴</li>
-</ul>
-<p>使用数字前缀，进行多字符，多行操作，例如:</p>
-<ul>
-<li><code>2dd</code> 删除两行</li>
-<li><code>2yy</code> 复制两行</li>
-<li><code>10j</code> 光标向下移动10行</li>
-<li><code>30gg</code> 光标跳转到第30行</li>
-</ul>
-<h3 id="回退、反回退"><a href="#回退、反回退" class="headerlink" title="回退、反回退"></a>回退、反回退</h3><ul>
-<li><code>u</code> 回退</li>
-<li><code>C-r</code> 反回退 ，这个是<code>ctrl+r</code> 组合键</li>
-</ul>
-<h3 id="显示行号"><a href="#显示行号" class="headerlink" title="显示行号"></a>显示行号</h3><p>命令模式下执行:</p>
-<ul>
-<li><code>set nu</code> 显示行号</li>
-<li><code>set nonu</code> 关闭行号</li>
-</ul>
-<h3 id="分屏"><a href="#分屏" class="headerlink" title="分屏"></a>分屏</h3><p>命令模式下执行：</p>
-<ul>
-<li><code>sp</code> 水平分屏</li>
-<li><code>vsp</code> 垂直分屏</li>
-<li><code>C-w</code> 分屏切换</li>
-<li><code>C-l</code> 切换右边屏</li>
-<li><code>C-h</code> 切换左边屏</li>
-</ul>
-<h2 id="高级篇"><a href="#高级篇" class="headerlink" title="高级篇"></a>高级篇</h2><p>这里所谓高级篇，其实就是不常用，但是关键时刻很好用的操作</p>
-<h3 id="搜索"><a href="#搜索" class="headerlink" title="搜索"></a>搜索</h3><p>命令模式下输入<code>/xxx</code>（或?xxx），按下enter，光标将跳转到搜索到的第一个xxx字符串位置,按<code>n</code>查找下一个</p>
-<ul>
-<li><code>/</code> 是向下搜索</li>
-<li><code>?</code> 是向上搜索</li>
-</ul>
-<h3 id="替换"><a href="#替换" class="headerlink" title="替换"></a>替换</h3><ul>
-<li>命令模式下，输入<code>s/abc/xyz</code> ，按下enter，将使用xyz替换光标所在行的abc</li>
-<li>命令模式下，输入<code>1,$s/abc/xyz/g</code> ，按下enter，将使用xyz替换文本中所有的abc</li>
-</ul>
-<p>其他更多替换方式，可以自行研究</p>
-<h3 id="区块操作"><a href="#区块操作" class="headerlink" title="区块操作"></a>区块操作</h3><p>批量在行首插入字符，在多行注释的时候十分有用，下面以多行注释操作为例</p>
-<ol>
-<li><p>普通模式下，按下<code>0</code>，光标移至行首</p>
-</li>
-<li><p>按下<code>C-v</code>，上下移动光标，发现可以垂直选中</p>
-</li>
-<li><p>按下<code>I</code>（注意是大写），进入插入模式，假设输入一个<code>#</code></p>
-</li>
-<li><p>按下<code>ESC</code>，发现之前被垂直选中的多行首位均已加上<code>#</code></p>
-</li>
-</ol>
-<h3 id="不退出vim，执行Linux系统命令"><a href="#不退出vim，执行Linux系统命令" class="headerlink" title="不退出vim，执行Linux系统命令"></a>不退出vim，执行Linux系统命令</h3><p>在命令模式下，输入<code>!</code>后面加系统命令，即可执行，例如<br><code>!ls</code> 列出当前目录文件，其他命令类似，以!开头</p>
-<h3 id="宏的简单使用"><a href="#宏的简单使用" class="headerlink" title="宏的简单使用"></a>宏的简单使用</h3><p>宏可以简单理解为一系列操作的快捷键,这里以一个实例说明</p>
-<ul>
-<li><p>需求：批量在100行文字首位，加上分号”;”</p>
-</li>
-<li><p>分析：光标移至行首 –&gt; 进入编辑模式 –&gt; 插入<code>;</code> –&gt; 退出编辑模式 –&gt; 光标移至下一行 –&gt; 循环以上操作</p>
-</li>
-<li><p>实现：</p>
-</li>
-</ul>
-<ol>
-<li><p>普通模式下，按<code>qa</code>(也可以是qb、qc… ;a、b、c… 表示寄存器，存放宏)，此时开始进行宏录制</p>
-</li>
-<li><p>按<code>0</code>光标移至行首，按<code>i</code>进入插入模式，键入<code>;</code> ,按<code>esc</code>退出编辑模式，按<code>j</code>光标移至下一行</p>
-</li>
-<li><p>按<code>q</code>退出宏录制。此时宏录制完成，存放在寄存器<code>a</code>中</p>
-</li>
-<li><p>普通模式下，输入<code>@a</code>，此时发现行首成功加上分号,且光标跳转到了下一行,说明宏运行成功。如果需要操作100行，则输入<code>100@a</code></p>
-</li>
-<li><p>命令模式下输入<code>reg a</code>,可以查看寄存器a的宏内容</p>
-</li>
-<li><p>修改宏内容,命令模式下输入<code>let @a=&#39;</code> ,然后按下<code>ctrl-r ctrl-r a</code> ,将自动补全寄存器a中的宏内容，然后进行编辑，补全最后的单引号,即可修改成功。</p>
-</li>
-</ol>
-<h3 id="结束语"><a href="#结束语" class="headerlink" title="结束语"></a>结束语</h3><p>以上操作是vim常用的操作，用来完成一般的编辑已经足够。如果想让你的vim具有更强大的超能力，就需要学习更多的光标移动、插件、配置、宏等其他知识。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ npm install -g hexo-cli</span><br></pre></td></tr></table></figure>
+<p>安装完成后，使用以下命令查看相关版本号</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo version</span><br></pre></td></tr></table></figure>
+<h2 id="快速开始"><a href="#快速开始" class="headerlink" title="快速开始"></a>快速开始</h2><h3 id="创建项目"><a href="#创建项目" class="headerlink" title="创建项目"></a>创建项目</h3><p>执行以下命令，将在指定目录(这里是<code>myblog</code>)创建必要文件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ hexo init myblog</span><br><span class="line">$ cd myblog</span><br><span class="line">$ npm install</span><br></pre></td></tr></table></figure>
+<p>目录结构如下</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">.</span><br><span class="line">├── _config.yml</span><br><span class="line">├── package.json</span><br><span class="line">├── scaffolds</span><br><span class="line">├── source</span><br><span class="line">|   ├── _drafts</span><br><span class="line">|   └── _posts</span><br><span class="line">└── themes</span><br></pre></td></tr></table></figure>
+<h4 id="config-yml"><a href="#config-yml" class="headerlink" title="_config.yml"></a>_config.yml</h4><p>网站配置信息，网站标题、作者等。下面列举一下常用配置参数，后面可以自定义设置。</p>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>title</td>
+<td>站点标题</td>
+</tr>
+<tr>
+<td>subtitle</td>
+<td>站点副标题</td>
+</tr>
+<tr>
+<td>description</td>
+<td>站点描述</td>
+</tr>
+<tr>
+<td>keywords</td>
+<td>站点关键词</td>
+</tr>
+<tr>
+<td>url</td>
+<td>网址</td>
+</tr>
+<tr>
+<td>permalink</td>
+<td>文章永久链接格式</td>
+</tr>
+<tr>
+<td>skip_render</td>
+<td>跳过指定文件的渲染</td>
+</tr>
+<tr>
+<td>theme</td>
+<td>当前主题</td>
+</tr>
+</tbody>
+</table>
+<h4 id="package-json"><a href="#package-json" class="headerlink" title="package.json"></a>package.json</h4><p>应用程序包信息，一般无需修改</p>
+<h4 id="scaffolds"><a href="#scaffolds" class="headerlink" title="scaffolds"></a>scaffolds</h4><p>模板文件目录，使用hexo命令创建新的文章时，将会根据该目录下的模板来创建</p>
+<h4 id="source"><a href="#source" class="headerlink" title="source"></a>source</h4><p>存放用户文章内容的目录。我们创建的文章资源，都在该目录下。在执行生成网页的命令后，除 _posts 文件夹之外，开头命名为 _ (下划线)的文件 / 文件夹和隐藏的文件将会被忽略。Markdown 和 HTML 文件会被解析，并放到根目录下的public 目录中，而其他文件会被拷贝过去</p>
+<h4 id="themes"><a href="#themes" class="headerlink" title="themes"></a>themes</h4><p>存放主题的目录。Hexo可以定制主题，目前有很多优秀的开源主题可供使用，Hexo会根据主题来生成静态页面。</p>
+<h3 id="创建网页"><a href="#创建网页" class="headerlink" title="创建网页"></a>创建网页</h3><h4 id="创建文章"><a href="#创建文章" class="headerlink" title="创建文章"></a>创建文章</h4><p>在<code>myblog</code> 目录下，执行以下命令</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new &quot;hello world&quot;</span><br><span class="line"></span><br><span class="line">INFO  Created: ~/Documents/Web/myblog/source/_posts/hello-world-1.md</span><br></pre></td></tr></table></figure>
+<p>可以看到，已自动为我们生成了一个markdown文件。但为什么名称不是<code>hello-world.md</code>呢？其实是因为前一部分应用在初始化的时候，已经默认创建了一个叫<code>hello-world.md</code>作为示例。这里再次创建同名文件，系统会自动重命名。<br>打开<code>hello-world-1.md</code>,随便写点测试内容</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">---</span><br><span class="line">title: hello world</span><br><span class="line">date: 2019-12-02 16:37:50</span><br><span class="line">tags:</span><br><span class="line">---</span><br><span class="line"></span><br><span class="line">### hexo学习第一题</span><br><span class="line"></span><br><span class="line">hexo很强大呀</span><br></pre></td></tr></table></figure>
+<h4 id="网页预览"><a href="#网页预览" class="headerlink" title="网页预览"></a>网页预览</h4><p>Hexo本来内置web server，但在3.0版本后把服务器作为了独立模块，必须先安装hexo-server 才能使用。它可以让在我们编写内容后，立即预览，只需要在<code>myblog</code>下执行</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ npm install hexo-server --save</span><br><span class="line">$ hexo server</span><br><span class="line"></span><br><span class="line">INFO  Start processing</span><br><span class="line">INFO  Hexo is running at http://localhost:4000 . Press Ctrl+C to stop.</span><br></pre></td></tr></table></figure>
+<p>以上结果说明运行成功，浏览器中访问<a href="http://localhost:4000" target="_blank" rel="noopener">http://localhost:4000</a> ，就可以看到效果。</p>
+<h4 id="生成网页"><a href="#生成网页" class="headerlink" title="生成网页"></a>生成网页</h4><p>如果想将博客发布到公网，推荐的做法是生成静态网页，托管到网络服务器。目前GitHub、Coding这两个代码托管平台，都可以免费发布静态网站</p>
+<p>使用以下命令，可以将我们写的markdown,生成静态的网页</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo generate</span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -672,12 +557,6 @@
 
     <footer class="post-footer">
       
-        <div class="post-tags">
-          
-            <a href="/tags/工具/" rel="tag"><i class="fa fa-tag"></i> 工具</a>
-          
-        </div>
-      
 
       
       
@@ -687,8 +566,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/10/php-extension-dev/" rel="next" title="PHP7开发扩展快速入门">
-                <i class="fa fa-chevron-left"></i> PHP7开发扩展快速入门
+              <a href="/2019/11/flask-03/" rel="next" title="flask视图及Session">
+                <i class="fa fa-chevron-left"></i> flask视图及Session
               </a>
             
           </div>
@@ -696,10 +575,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/12/git-start/" rel="prev" title="10分钟上手Git">
-                10分钟上手Git <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -877,7 +752,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#基础篇"><span class="nav-number">1.</span> <span class="nav-text">基础篇</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#vi、vim"><span class="nav-number">1.1.</span> <span class="nav-text">vi、vim</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#工作模式"><span class="nav-number">1.2.</span> <span class="nav-text">工作模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#基本操作"><span class="nav-number">1.3.</span> <span class="nav-text">基本操作</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#技巧篇"><span class="nav-number">2.</span> <span class="nav-text">技巧篇</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#光标移动"><span class="nav-number">2.1.</span> <span class="nav-text">光标移动</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#选择复制粘贴"><span class="nav-number">2.2.</span> <span class="nav-text">选择复制粘贴</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#回退、反回退"><span class="nav-number">2.3.</span> <span class="nav-text">回退、反回退</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#显示行号"><span class="nav-number">2.4.</span> <span class="nav-text">显示行号</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#分屏"><span class="nav-number">2.5.</span> <span class="nav-text">分屏</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#高级篇"><span class="nav-number">3.</span> <span class="nav-text">高级篇</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#搜索"><span class="nav-number">3.1.</span> <span class="nav-text">搜索</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#替换"><span class="nav-number">3.2.</span> <span class="nav-text">替换</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#区块操作"><span class="nav-number">3.3.</span> <span class="nav-text">区块操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#不退出vim，执行Linux系统命令"><span class="nav-number">3.4.</span> <span class="nav-text">不退出vim，执行Linux系统命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#宏的简单使用"><span class="nav-number">3.5.</span> <span class="nav-text">宏的简单使用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#结束语"><span class="nav-number">3.6.</span> <span class="nav-text">结束语</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Hexo简介"><span class="nav-number">1.</span> <span class="nav-text">Hexo简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#准备"><span class="nav-number">2.</span> <span class="nav-text">准备</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#文档"><span class="nav-number">2.1.</span> <span class="nav-text">文档</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#安装"><span class="nav-number">2.2.</span> <span class="nav-text">安装</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#快速开始"><span class="nav-number">3.</span> <span class="nav-text">快速开始</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#创建项目"><span class="nav-number">3.1.</span> <span class="nav-text">创建项目</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#config-yml"><span class="nav-number">3.1.1.</span> <span class="nav-text">_config.yml</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#package-json"><span class="nav-number">3.1.2.</span> <span class="nav-text">package.json</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#scaffolds"><span class="nav-number">3.1.3.</span> <span class="nav-text">scaffolds</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#source"><span class="nav-number">3.1.4.</span> <span class="nav-text">source</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#themes"><span class="nav-number">3.1.5.</span> <span class="nav-text">themes</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#创建网页"><span class="nav-number">3.2.</span> <span class="nav-text">创建网页</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#创建文章"><span class="nav-number">3.2.1.</span> <span class="nav-text">创建文章</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#网页预览"><span class="nav-number">3.2.2.</span> <span class="nav-text">网页预览</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#生成网页"><span class="nav-number">3.2.3.</span> <span class="nav-text">生成网页</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>
